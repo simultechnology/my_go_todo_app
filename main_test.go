@@ -31,7 +31,7 @@ func TestRun(t *testing.T) {
 	if err != nil {
 		t.Errorf("failed to read body: %+v", err)
 	}
-	want := fmt.Sprintf("Hello, %s!", in)
+	want := fmt.Sprintf("Hello, %s!!!", in)
 	if string(got) != want {
 		t.Errorf("want %q, but got %q", want, got)
 	}

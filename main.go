@@ -3,13 +3,14 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/simultechnology/my_go_todo_app/config"
-	"golang.org/x/sync/errgroup"
 	"io"
 	"log"
 	"net"
 	"net/http"
 	"os"
+
+	"github.com/simultechnology/my_go_todo_app/config"
+	"golang.org/x/sync/errgroup"
 )
 
 func main() {

@@ -3,14 +3,15 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/simultechnology/my_go_todo_app/config"
+	"golang.org/x/sync/errgroup"
 	"io"
 	"log"
 	"net"
 	"net/http"
 	"os"
-
-	"github.com/simultechnology/my_go_todo_app/config"
-	"golang.org/x/sync/errgroup"
+	"os/signal"
+	"time"
 )
 
 func main() {
@@ -24,6 +25,8 @@ func main() {
 }
 
 func run(ctx context.Context) error {
+	ctx, stop := signal.NotifyContext(ctx, os.Interrupt)
+	defer stop()
 	cfg, err := config.New()
 	if err != nil {
 		return err
@@ -37,6 +40,7 @@ func run(ctx context.Context) error {
 	s := &http.Server{
 		//Addr: ":18080",
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			time.Sleep(5 * time.Second)
 			writer := io.MultiWriter(w, os.Stdout)
 			fmt.Fprintf(writer, "Hello, %s!!!\n", r.URL.Path[1:])
 		}),

@@ -30,3 +30,13 @@ help: ## Show options
 fmt: ## format of import parts
 	find . -type f -iname '*.go' | xargs goimports -w
 
+LINTER := golangci-lint
+
+$(LINTER):
+	go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+
+LINT_FLAGS :=--enable golint,unconvert,unparam,gofmt
+
+.PHONY: lint
+lint: $(LINTER)
+	$(LINTER) run $(LINT_FLAGS)

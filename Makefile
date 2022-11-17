@@ -3,7 +3,7 @@
 
 DOCKER_TAG := latest
 build: ## Build docker image to deploy
-	docker build -t budougumi0617/gotodo:${DOCKER_TAG} --target deploy ./
+	docker build -t simultechnology/mygotodo:${DOCKER_TAG} --target deploy ./
 
 build-local: ## Build docker image to local development
 	docker compose build --no-cache
@@ -26,3 +26,17 @@ test: ## Execute tests
 help: ## Show options
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+fmt: ## format of import parts
+	find . -type f -iname '*.go' | xargs goimports -w
+
+LINTER := golangci-lint
+
+$(LINTER):
+	go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+
+LINT_FLAGS :=--enable golint,unconvert,unparam,gofmt
+
+.PHONY: lint
+lint: $(LINTER)
+	$(LINTER) run $(LINT_FLAGS)

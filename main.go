@@ -3,8 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/simultechnology/my_go_todo_app/config"
-	"golang.org/x/sync/errgroup"
 	"io"
 	"log"
 	"net"
@@ -12,6 +10,9 @@ import (
 	"os"
 	"os/signal"
 	"time"
+
+	"github.com/simultechnology/my_go_todo_app/config"
+	"golang.org/x/sync/errgroup"
 )
 
 func main() {

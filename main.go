@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/simultechnology/my_go_todo_app/config"
+	"github.com/simultechnology/my_go_todo_app/server"
 	"log"
 	"net"
 	"os"
@@ -30,7 +31,7 @@ func run(ctx context.Context) error {
 	}
 	url := fmt.Sprintf("http://%s", l.Addr().String())
 	log.Printf("start with: %v", url)
-	mux := NewMux()
-	s := NewServer(l, mux)
+	mux := server.NewMux()
+	s := server.NewServer(l, mux)
 	return s.Run(ctx)
 }

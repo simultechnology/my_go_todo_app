@@ -1,10 +1,11 @@
 package handler
 
 import (
+	"net/http"
+
 	"github.com/simultechnology/my_go_todo_app/entity"
 	my_json "github.com/simultechnology/my_go_todo_app/my-json"
 	"github.com/simultechnology/my_go_todo_app/store"
-	"net/http"
 )
 
 type ListTask struct {

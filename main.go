@@ -3,11 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/simultechnology/my_go_todo_app/config"
-	"github.com/simultechnology/my_go_todo_app/server"
 	"log"
 	"net"
 	"os"
+
+	"github.com/simultechnology/my_go_todo_app/config"
+	"github.com/simultechnology/my_go_todo_app/server"
 )
 
 func main() {

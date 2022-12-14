@@ -2,12 +2,13 @@ package handler
 
 import (
 	"encoding/json"
-	"github.com/go-playground/validator/v10"
-	"github.com/simultechnology/my_go_todo_app/entity"
-	"github.com/simultechnology/my_go_todo_app/my-json"
-	"github.com/simultechnology/my_go_todo_app/store"
 	"net/http"
 	"time"
+
+	"github.com/go-playground/validator/v10"
+	"github.com/simultechnology/my_go_todo_app/entity"
+	my_json "github.com/simultechnology/my_go_todo_app/my-json"
+	"github.com/simultechnology/my_go_todo_app/store"
 )
 
 type AddTask struct {

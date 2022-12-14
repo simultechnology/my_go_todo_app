@@ -2,13 +2,14 @@ package handler
 
 import (
 	"bytes"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
 	"github.com/go-playground/validator/v10"
 	"github.com/simultechnology/my_go_todo_app/entity"
 	"github.com/simultechnology/my_go_todo_app/store"
 	"github.com/simultechnology/my_go_todo_app/testutil"
-	"net/http"
-	"net/http/httptest"
-	"testing"
 )
 
 func TestAddTask_ServerHTTP(t *testing.T) {

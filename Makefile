@@ -46,3 +46,6 @@ LINT_FLAGS :=--enable golint,unconvert,unparam,gofmt
 .PHONY: lint
 lint: $(LINTER)
 	$(LINTER) run $(LINT_FLAGS)
+
+generate: ## Generate codes
+	go generate ./...

@@ -10,6 +10,8 @@ import (
 
 	"github.com/jmoiron/sqlx"
 	"github.com/simultechnology/my_go_todo_app/config"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func New(ctx context.Context, cfg *config.Config) (*sqlx.DB, func(), error) {

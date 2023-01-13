@@ -6,7 +6,8 @@ import (
 	"github.com/simultechnology/my_go_todo_app/entity"
 )
 
-func (r *Repository) ListTasks(ctx context.Context, db Queryer) (entity.Tasks, error) {
+func (r *Repository) ListTasks(
+	ctx context.Context, db Queryer) (entity.Tasks, error) {
 	tasks := entity.Tasks{}
 	sql := `SELECT
 			id, title,

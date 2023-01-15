@@ -13,7 +13,7 @@ type RegisterUser struct {
 }
 
 func (r *RegisterUser) RegisterUser(ctx context.Context, u *entity.User) (*entity.User, error) {
-	_, err := r.Repo.RegisterUser(ctx, r.DB, u)
+	err := r.Repo.RegisterUser(ctx, r.DB, u)
 	if err != nil {
 		return nil, fmt.Errorf("failed to register: %w", err)
 	}

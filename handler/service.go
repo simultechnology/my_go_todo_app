@@ -5,7 +5,7 @@ import (
 	"github.com/simultechnology/my_go_todo_app/entity"
 )
 
-//go:generate go run github.com/matryer/moq -out moq_test.go . ListTasksService AddTaskService
+//go:generate go run github.com/matryer/moq -out moq_test.go . ListTasksService AddTaskService RegisterUserService
 type ListTasksService interface {
 	ListTasks(ctx context.Context) (entity.Tasks, error)
 }
@@ -15,5 +15,5 @@ type AddTaskService interface {
 }
 
 type RegisterUserService interface {
-	AddUser(ctx context.Context, user *entity.User) (*entity.User, error)
+	RegisterUser(ctx context.Context, user *entity.User) (*entity.User, error)
 }

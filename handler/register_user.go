@@ -2,13 +2,13 @@ package handler
 
 import (
 	"encoding/json"
-	"github.com/simultechnology/my_go_todo_app/handler/service"
+	"github.com/simultechnology/my_go_todo_app/entity"
 	my_json "github.com/simultechnology/my_go_todo_app/my-json"
 	"net/http"
 )
 
 type RegisterUser struct {
-	Service service.RegisterUserService
+	Service RegisterUserService
 }
 
 func (ru *RegisterUser) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +24,10 @@ func (ru *RegisterUser) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}, http.StatusInternalServerError)
 		return
 	}
-	t, err := ru.Service.RegisterUser(ctx, b)
+	u := &entity.User{
+		Name: b.name, Password: b.password, Role: b.role,
+	}
+	u, err := ru.Service.RegisterUser(ctx, u)
 	if err != nil {
 		my_json.RespondJSON(ctx, w, &my_json.ErrResponse{
 			Message: err.Error(),

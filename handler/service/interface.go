@@ -14,5 +14,5 @@ type TaskLister interface {
 	ListTasks(ctx context.Context, db store.Queryer) (entity.Tasks, error)
 }
 type UserRegister interface {
-	RegisterUser(ctx context.Context, db store.Execer, u *entity.User) (entity.User, error)
+	RegisterUser(ctx context.Context, db store.Execer, u *entity.User) error
 }

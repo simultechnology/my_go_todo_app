@@ -19,12 +19,12 @@ func (r *Repository) ListUsers(
 	return users, nil
 }
 
-func (r *Repository) AddUser(
+func (r *Repository) RegisterUser(
 	ctx context.Context, db Execer, u *entity.User,
 ) error {
 	u.Created = r.Clocker.Now()
 	u.Modified = r.Clocker.Now()
-	sql := `INSERT INTO task
+	sql := `INSERT INTO user
 		(name, password, role, created, modified)
 	VALUES (?, ?, ?, ?, ?)`
 	result, err := db.ExecContext(

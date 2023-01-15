@@ -8,7 +8,7 @@ import (
 )
 
 type RegisterUser struct {
-	Service service.RegisterUser
+	Service service.RegisterUserService
 }
 
 func (ru *RegisterUser) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -24,7 +24,7 @@ func (ru *RegisterUser) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}, http.StatusInternalServerError)
 		return
 	}
-	t, err := ru.Service.RegisterUser(ctx, b.Title)
+	t, err := ru.Service.RegisterUser(ctx, b)
 	if err != nil {
 		my_json.RespondJSON(ctx, w, &my_json.ErrResponse{
 			Message: err.Error(),

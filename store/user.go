@@ -2,6 +2,7 @@ package store
 
 import (
 	"context"
+	"golang.org/x/crypto/bcrypt"
 
 	"github.com/simultechnology/my_go_todo_app/entity"
 )
@@ -10,7 +11,7 @@ func (r *Repository) ListUsers(
 	ctx context.Context, db Queryer) (entity.Users, error) {
 	users := entity.Users{}
 	sql := `SELECT
-			id, name,
+			id, name, password,
 			role, created, modified
 		FROM user;`
 	if err := db.SelectContext(ctx, &users, sql); err != nil {
@@ -24,11 +25,15 @@ func (r *Repository) RegisterUser(
 ) error {
 	u.Created = r.Clocker.Now()
 	u.Modified = r.Clocker.Now()
+	encrypt, err := passwordEncrypt(u.Password)
+	if err != nil {
+		return err
+	}
 	sql := `INSERT INTO user
 		(name, password, role, created, modified)
 	VALUES (?, ?, ?, ?, ?)`
 	result, err := db.ExecContext(
-		ctx, sql, u.Name, u.Password, u.Role,
+		ctx, sql, u.Name, encrypt, u.Role,
 		u.Created, u.Modified,
 	)
 	if err != nil {
@@ -40,4 +45,15 @@ func (r *Repository) RegisterUser(
 	}
 	u.ID = entity.UserID(id)
 	return nil
+}
+
+// 暗号(Hash)化
+func passwordEncrypt(password string) (string, error) {
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	return string(hash), err
+}
+
+// 暗号(Hash)と入力された平パスワードの比較
+func compareHashAndPassword(hash, password string) error {
+	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 }

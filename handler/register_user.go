@@ -14,9 +14,9 @@ type RegisterUser struct {
 func (ru *RegisterUser) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	var b struct {
-		name     string `json:"name" validate:"required"`
-		password string `json:"password" validate:"required"`
-		role     string `json:"role"`
+		Name     string `json:"name" validate:"required"`
+		Password string `json:"password" validate:"required"`
+		Role     string `json:"role"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&b); err != nil {
 		my_json.RespondJSON(ctx, w, &my_json.ErrResponse{
@@ -25,7 +25,7 @@ func (ru *RegisterUser) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	u := &entity.User{
-		Name: b.name, Password: b.password, Role: b.role,
+		Name: b.Name, Password: b.Password, Role: b.Role,
 	}
 	u, err := ru.Service.RegisterUser(ctx, u)
 	if err != nil {
@@ -34,4 +34,8 @@ func (ru *RegisterUser) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}, http.StatusInternalServerError)
 		return
 	}
+	rsp := struct {
+		ID int `json:"id"`
+	}{ID: int(u.ID)}
+	my_json.RespondJSON(ctx, w, rsp, http.StatusOK)
 }

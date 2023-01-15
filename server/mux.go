@@ -50,5 +50,10 @@ func NewMux(ctx context.Context, cfg *config.Config) (http.Handler, func(), erro
 	}}
 	mux.Post("/users", ru.ServeHTTP)
 
+	lu := &handler.ListUser{Service: &service.ListUser{
+		DB: db, Repo: &r,
+	}}
+	mux.Get("/users", lu.ServeHTTP)
+
 	return mux, cleanup, nil
 }
